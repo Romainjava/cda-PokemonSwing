@@ -1,20 +1,31 @@
 package View;
 
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
+import Components.JLabelCustom;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class MainApp extends JFrame {
 
 	private JPanel contentPane;
@@ -28,7 +39,7 @@ public class MainApp extends JFrame {
 	private JTextField main_puissance_textField;
 	private JTextField main_precision_textField;
 	private JTextField footer_nomDre_textField;
-
+	BufferedImage image;
 	/**
 	 * Launch the application.
 	 */
@@ -49,23 +60,58 @@ public class MainApp extends JFrame {
 	 * Create the frame.
 	 */
 	public MainApp() {
+		/**
+		 * UI Nimbus
+		 */
+//		try {
+//			UIManager.setLookAndFeel(new NimbusLookAndFeel());
+//		} catch (UnsupportedLookAndFeelException e) {
+//			e.printStackTrace();
+//		}
+		// ==== FIN UI NIMBUS === //
+		//=== Background Image === //
+		//BackgroundPanel bagrP = new BackgroundPanel("wallPaperPKM.png");
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1100, 800);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		/**
+		 *Permet d'afficher une image en background d'un JPanel 
+		 */
+		try {
+			  image = ImageIO.read(new File("wallPaperPKM.png"));
+			  image.getScaledInstance(1100, 800, Image.SCALE_SMOOTH);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		contentPane = new JPanel()
+		{
+			 @Override
+	            protected void paintComponent(Graphics g) {
+	                super.paintComponent(g);
+	                g.drawImage(image, 0, 0, 1100,800,null);
+			 }
+		};
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));	
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow,right][grow,left]", "[grow]"));
 		
+		
+		
 		// == LEFT PANEL == //
 		JPanel main_left_panel = new JPanel();
+		main_left_panel.setBackground(new Color(0,0,0,0));
 		contentPane.add(main_left_panel, "cell 0 0,grow");
 		main_left_panel.setLayout(new MigLayout("", "[grow]", "[grow][grow][grow]"));
 		
 		JPanel block_header_panel = new JPanel();
+		block_header_panel.setBackground(new Color(0,0,0,125));//permet de mettre opacity à 125(0,255)
+		
 		main_left_panel.add(block_header_panel, "cell 0 0,grow");
 		block_header_panel.setLayout(new MigLayout("", "[grow]", "[grow][grow][grow]"));
 		
-		JLabel lblAjoutPokemonDans = new JLabel("Ajout pokemon dans Pokedex National");
+		JLabelCustom lblAjoutPokemonDans = new JLabelCustom("Ajout pokemon dans Pokedex National");
 		block_header_panel.add(lblAjoutPokemonDans, "cell 0 0,alignx center");
 		
 		header_nomPoke_textfield = new JTextField();
@@ -88,6 +134,7 @@ public class MainApp extends JFrame {
 		block_header_panel.add(header_btnUpdate, "cell 0 2,alignx center");
 		
 		JPanel block_main_panel = new JPanel();
+		block_main_panel.setBackground(new Color(0,0,0,125));
 		main_left_panel.add(block_main_panel, "cell 0 1,grow");
 		block_main_panel.setLayout(new MigLayout("", "[grow]", "[grow][grow][grow][grow][200px:n,grow]"));
 		
@@ -135,6 +182,8 @@ public class MainApp extends JFrame {
 		
 		
 		JPanel block_footer_panel = new JPanel();
+		block_footer_panel.setBackground(new Color(0,0,0,125));
+		
 		main_left_panel.add(block_footer_panel, "cell 0 2,grow");
 		block_footer_panel.setLayout(new MigLayout("", "[grow]", "[grow][grow][200px:n,grow]"));
 		
@@ -153,10 +202,12 @@ public class MainApp extends JFrame {
 		
 		// === RIGHT PANEL === //
 		JPanel main_right_panel = new JPanel();
+		main_right_panel.setBackground(new Color(0,0,0,125));
 		contentPane.add(main_right_panel, "cell 1 0,grow");
 		main_right_panel.setLayout(new MigLayout("", "[grow]", "[::100px,grow][grow]"));
 		
 		JPanel block_search_panel = new JPanel();
+		block_search_panel.setBackground(new Color(0,0,0,125));
 		main_right_panel.add(block_search_panel, "cell 0 0,grow");
 		block_search_panel.setLayout(new MigLayout("", "[grow]", "[::50px][::50px]"));
 		
@@ -168,10 +219,11 @@ public class MainApp extends JFrame {
 		search_textField.setColumns(10);
 		
 		JScrollPane block_wrapTab_scrollPane = new JScrollPane();
+		block_wrapTab_scrollPane.setBackground(new Color(0,0,0,125));
 		main_right_panel.add(block_wrapTab_scrollPane, "cell 0 1,grow");
 		
 		tableau = new JTable();
-		block_wrapTab_scrollPane.setViewportView(tableau);
-	}
+		block_wrapTab_scrollPane.setViewportView(tableau); 
+	} 
 
 }

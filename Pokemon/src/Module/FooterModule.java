@@ -24,6 +24,7 @@ public class FooterModule {
 		block_footer_panel.add(lblNomDresseur, "flowx,cell 0 1,alignx center");
 
 		nomDresseur = new PlaceholderTextField();
+		nomDresseur.setPlaceholder("Nom du Dresseur");
 		block_footer_panel.add(nomDresseur, "cell 0 1");
 		nomDresseur.setColumns(10);
 

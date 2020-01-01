@@ -1,4 +1,4 @@
-package Enum;
+package enumeration;
 
 public enum E_type {
 	Combat(1,"Combat"),

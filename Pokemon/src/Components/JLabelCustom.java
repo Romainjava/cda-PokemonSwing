@@ -9,8 +9,14 @@ import javax.swing.JLabel;
  * @author Romain
  *
  */
+@SuppressWarnings("serial")
 public class JLabelCustom extends JLabel {
 
+	public JLabelCustom() {
+		super();
+		this.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 20));
+		this.setForeground(Color.WHITE);
+	}
 	
 	public JLabelCustom(String str) {
 		super();
@@ -19,9 +25,17 @@ public class JLabelCustom extends JLabel {
 		this.setForeground(Color.WHITE);
 	}
 	
-	public JLabelCustom() {
+	public JLabelCustom(String text,int sizeFont) {
 		super();
-		this.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 20));
+		this.setText(text);
+		setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, sizeFont));
 		this.setForeground(Color.WHITE);
+	}
+	
+	public JLabelCustom(String text,int sizeFont, Color color) {
+		super();
+		this.setText(text);
+		setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, sizeFont));
+		this.setForeground(color);
 	}
 }
